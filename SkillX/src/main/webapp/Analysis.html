@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill Gap Analysis View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #315668;
+            border-radius: 10px;
+        }
+        .glass-card {
+            background: rgba(24, 43, 52, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(49, 86, 104, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-white font-display">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-[#223c49] px-6 lg:px-40 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">SkillGap Analyzer</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Analysis</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Learning Path</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Profile</a>
+</nav>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCEvox-4V6uGnpedm6VVQHbHdISG07qSbnppPHVt-YhqouRfpdUPTrgOqircnomfHpJHQsH_WGn76-k5hR1hsYzT6iHd8b5VEVj8CeiYJ20PD4IoLYpw2ChlgCt4Ys_-54BWJaRkIO0Rr-bKk4n6otZCsUdIYDtKUJUYLuHVsfGkOYkilGZGHVGf-67GqMU1eY9M-uPmZ1ctLpcJCDx6QE8q4BQVoDacgt_cnn9y2zyMUjXttqS8kzIwPAgB-pBhpoUmQBBz9-_oAmT");'></div>
+</div>
+</header>
+<main class="flex-1 px-6 lg:px-40 py-8">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between items-end gap-6">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tight">Skill Gap Analysis</p>
+<p class="text-slate-500 dark:text-[#90b7cb] text-base font-normal">Map your current proficiency against market expectations.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-5 bg-slate-200 dark:bg-[#223c49] text-slate-900 dark:text-white text-sm font-bold hover:bg-slate-300 dark:hover:bg-[#315668] transition-all">
+<span class="material-symbols-outlined mr-2 text-lg">file_download</span>
+                            Export Report
+                        </button>
+<button class="flex items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold hover:brightness-110 shadow-lg shadow-primary/20 transition-all">
+<span class="material-symbols-outlined mr-2 text-lg">auto_fix_high</span>
+                            Generate Path
+                        </button>
+</div>
+</div>
+<!-- Role Selection Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 glass-card p-6 rounded-xl flex items-center gap-6">
+<div class="flex-1">
+<label class="flex flex-col min-w-40 flex-1">
+<p class="text-slate-700 dark:text-white text-sm font-semibold leading-normal pb-2 uppercase tracking-wider">Target Career Path</p>
+<div class="relative">
+<select class="appearance-none flex w-full min-w-0 flex-1 rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-200 dark:border-[#315668] bg-white dark:bg-[#182b34] h-14 px-4 pr-10 text-lg font-medium">
+<option value="software-engineer">Software Engineer (L1)</option>
+<option value="data-analyst">Data Analyst</option>
+<option value="product-manager">Product Manager</option>
+<option value="ui-designer">UI/UX Designer</option>
+</select>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</label>
+</div>
+<div class="hidden sm:block h-12 w-px bg-slate-200 dark:bg-[#315668]"></div>
+<div class="hidden sm:block">
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Market Benchmark</p>
+<div class="flex items-center gap-2">
+<span class="bg-primary/20 text-primary text-xs font-bold px-2 py-1 rounded">FAANG+ Standard</span>
+</div>
+</div>
+</div>
+<!-- Stats Quick View -->
+<div class="flex gap-4">
+<div class="flex flex-1 flex-col justify-center items-center gap-1 glass-card rounded-xl p-4 text-center border-l-4 border-l-primary">
+<p class="text-slate-500 dark:text-[#90b7cb] text-xs font-bold uppercase tracking-tighter">Overall Match</p>
+<p class="text-primary text-3xl font-black leading-tight">72%</p>
+<p class="text-[#0bda57] text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>+5%
+                            </p>
+</div>
+<div class="flex flex-1 flex-col justify-center items-center gap-1 glass-card rounded-xl p-4 text-center border-l-4 border-l-orange-500">
+<p class="text-slate-500 dark:text-[#90b7cb] text-xs font-bold uppercase tracking-tighter">Gaps Found</p>
+<p class="text-white text-3xl font-black leading-tight">4</p>
+<p class="text-slate-400 text-xs font-medium uppercase">Skills to build</p>
+</div>
+</div>
+</div>
+<!-- Comparison Table -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-[#315668] flex justify-between items-center bg-white/5">
+<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Skill Comparison Matrix</h2>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Required
+                            </div>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span> You
+                            </div>
+</div>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-slate-400 text-xs uppercase font-bold tracking-widest border-b border-slate-200 dark:border-[#315668]">
+<th class="px-6 py-4">Skill Name</th>
+<th class="px-6 py-4">Required Level</th>
+<th class="px-6 py-4">Your Level</th>
+<th class="px-6 py-4 text-center">Gap Score</th>
+<th class="px-6 py-4 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-[#315668]">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<span class="text-slate-900 dark:text-white font-bold text-base">Python &amp; Data Structures</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="text-[#0bda57] font-black text-lg">+1</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="inline-flex items-center rounded-full bg-[#0bda57]/10 px-3 py-1 text-xs font-bold text-[#0bda57] ring-1 ring-inset ring-[#0bda57]/20">
+                                            Expert Match
+                                        </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined">database</span>
+</div>
+<span class="text-slate-900 dark:text-white font-bold text-base">System Design</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="text-red-500 font-black text-lg">-2</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="inline-flex items-center rounded-full bg-red-500/10 px-3 py-1 text-xs font-bold text-red-500 ring-1 ring-inset ring-red-500/20">
+                                            Critical Gap
+                                        </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<span class="text-slate-900 dark:text-white font-bold text-base">Agile Methodology</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="text-slate-400 font-black text-lg">0</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="inline-flex items-center rounded-full bg-slate-500/10 px-3 py-1 text-xs font-bold text-slate-400 ring-1 ring-inset ring-slate-500/20">
+                                            You're Good
+                                        </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+<span class="material-symbols-outlined">cloud</span>
+</div>
+<span class="text-slate-900 dark:text-white font-bold text-base">Cloud Deployment (AWS)</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-primary"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+<div class="h-2 w-6 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="text-yellow-500 font-black text-lg">-1</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="inline-flex items-center rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-bold text-yellow-500 ring-1 ring-inset ring-yellow-500/20">
+                                            Improvement Needed
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Bridge the Gap CTA Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+<div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">school</span>
+</div>
+<h3 class="text-lg font-bold mb-2">Bridge Your Critical Gaps</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">We found 3 courses to help you master System Design and Cloud architecture.</p>
+<button class="text-primary text-sm font-bold flex items-center gap-2 hover:underline">
+                            View Recommendations <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="bg-primary/10 border border-primary/30 p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl">rocket_launch</span>
+</div>
+<h3 class="text-lg font-bold mb-2 text-primary">Resume Optimizer</h3>
+<p class="text-slate-900 dark:text-slate-200 text-sm mb-4">You have 72% match. We can help you tweak your project descriptions to hit 85%.</p>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:brightness-110">
+                            Optimize Now
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

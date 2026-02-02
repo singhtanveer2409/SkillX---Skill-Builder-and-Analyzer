@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillX Registration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<style>
+body {
+    font-family: Inter, sans-serif;
+    background: #101c22;
+}
+.glass {
+    background: rgba(24,43,52,0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(49,86,104,0.5);
+}
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-white py-8">
+<form id="registerForm"
+      action="RegisterHandler"
+      method="POST"
+      class="glass w-full max-w-md p-8 rounded-xl flex flex-col gap-5">
+      
+<h1 class="text-3xl font-extrabold text-center mb-2">
+    Skill<span class="text-sky-400">Gap</span>
+</h1>
+<p class="text-center text-gray-400 text-sm mb-2">Create your account</p>
+
+<!-- FULL NAME -->
+<div>
+    <input
+        type="text"
+        id="fullName"
+        name="fullName"
+        placeholder="Full Name"
+        required
+        class="h-12 w-full rounded-lg bg-[#101c22]/70 border border-[#315668] px-4 focus:ring-2 focus:ring-sky-400"
+    />
+    <p id="nameError" class="hidden text-red-400 text-sm mt-1">
+        Please enter your full name (at least 3 characters)
+    </p>
+</div>
+
+<!-- EMAIL -->
+<div>
+    <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="name@college.edu"
+        required
+        class="h-12 w-full rounded-lg bg-[#101c22]/70 border border-[#315668] px-4 focus:ring-2 focus:ring-sky-400"
+    />
+    <p id="emailError" class="hidden text-red-400 text-sm mt-1">
+        Please use a valid .edu, .com, or .ac.in email address
+    </p>
+</div>
+
+<!-- PASSWORD -->
+<div>
+    <div class="relative">
+        <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            class="h-12 w-full rounded-lg bg-[#101c22]/70 border border-[#315668] px-4 pr-12 focus:ring-2 focus:ring-sky-400"
+        />
+        <span
+            id="togglePassword"
+            class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer select-none text-gray-400 hover:text-white"
+        >
+            visibility
+        </span>
+    </div>
+    <p id="passError" class="hidden text-red-400 text-sm mt-1">
+        Password must be at least 8 characters with uppercase, lowercase, and a number
+    </p>
+</div>
+
+<!-- DEPARTMENT -->
+<div>
+    <select
+        id="department"
+        name="department"
+        required
+        class="h-12 w-full rounded-lg bg-[#101c22]/70 border border-[#315668] px-4 focus:ring-2 focus:ring-sky-400"
+    >
+        <option value="" disabled selected>Select Department</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Information Technology">Information Technology</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Mechanical">Mechanical</option>
+        <option value="Civil">Civil</option>
+        <option value="Electrical">Electrical</option>
+        <option value="Other">Other</option>
+    </select>
+</div>
+
+<!-- YEAR -->
+<div>
+    <select
+        id="year"
+        name="year"
+        required
+        class="h-12 w-full rounded-lg bg-[#101c22]/70 border border-[#315668] px-4 focus:ring-2 focus:ring-sky-400"
+    >
+        <option value="" disabled selected>Select Year</option>
+        <option value="1">First Year</option>
+        <option value="2">Second Year</option>
+        <option value="3">Third Year</option>
+        <option value="4">Fourth Year</option>
+    </select>
+</div>
+
+<!-- ROLE (Hidden - defaults to STUDENT) -->
+<input type="hidden" name="role" value="STUDENT">
+
+<button
+    type="submit"
+    class="h-12 rounded-lg bg-sky-500 font-bold hover:brightness-110 active:scale-95 transition"
+>
+    Create Account
+</button>
+
+<p class="text-center text-sm text-gray-400">
+    Already have an account? 
+    <a href="index.html" class="text-sky-400 hover:underline">Login here</a>
+</p>
+
+</form>
+
+<script>
+/* PASSWORD VISIBILITY */
+const passwordInput = document.getElementById("password");
+const toggleIcon = document.getElementById("togglePassword");
+
+toggleIcon.addEventListener("click", () => {
+    const isHidden = passwordInput.type === "password";
+    passwordInput.type = isHidden ? "text" : "password";
+    toggleIcon.textContent = isHidden ? "visibility_off" : "visibility";
+});
+
+/* FORM VALIDATION */
+const registerForm = document.getElementById("registerForm");
+const fullNameInput = document.getElementById("fullName");
+const emailInput = document.getElementById("email");
+const nameError = document.getElementById("nameError");
+const emailError = document.getElementById("emailError");
+const passError = document.getElementById("passError");
+
+registerForm.addEventListener("submit", function (e) {
+    let isValid = true;
+    
+    // NAME VALIDATION
+    const fullName = fullNameInput.value.trim();
+    if (fullName.length < 3) {
+        e.preventDefault();
+        isValid = false;
+        nameError.classList.remove("hidden");
+        fullNameInput.classList.add("border-red-400");
+    } else {
+        nameError.classList.add("hidden");
+        fullNameInput.classList.remove("border-red-400");
+    }
+    
+    // EMAIL VALIDATION
+    const email = emailInput.value;
+    const validEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|edu|ac\.in)$/.test(email);
+    
+    if (!validEmail) {
+        e.preventDefault();
+        isValid = false;
+        emailError.classList.remove("hidden");
+        emailInput.classList.add("border-red-400");
+    } else {
+        emailError.classList.add("hidden");
+        emailInput.classList.remove("border-red-400");
+    }
+    
+    // PASSWORD VALIDATION
+    const password = passwordInput.value;
+    const hasMinLength = password.length >= 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    
+    if (!hasMinLength || !hasUpperCase || !hasLowerCase || !hasNumber) {
+        e.preventDefault();
+        isValid = false;
+        passError.classList.remove("hidden");
+        passwordInput.classList.add("border-red-400");
+    } else {
+        passError.classList.add("hidden");
+        passwordInput.classList.remove("border-red-400");
+    }
+    
+    // Focus on first invalid field
+    if (!isValid) {
+        if (fullName.length < 3) {
+            fullNameInput.focus();
+        } else if (!validEmail) {
+            emailInput.focus();
+        } else {
+            passwordInput.focus();
+        }
+    }
+});
+
+// Hide errors when typing
+fullNameInput.addEventListener("input", () => {
+    nameError.classList.add("hidden");
+    fullNameInput.classList.remove("border-red-400");
+});
+
+emailInput.addEventListener("input", () => {
+    emailError.classList.add("hidden");
+    emailInput.classList.remove("border-red-400");
+});
+
+passwordInput.addEventListener("input", () => {
+    passError.classList.add("hidden");
+    passwordInput.classList.remove("border-red-400");
+});
+</script>
+</body>
+</html>
